@@ -1,6 +1,10 @@
 <template>
   <div>
     <div class="editor">
+      <textarea width="100%" v-model="base">
+
+      </textarea>
+      <button @click="setContent">Set Content</button>
       <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
         <div class="menubar">
 
@@ -182,6 +186,7 @@ export default {
   },
   data() {
     return {
+      base: "votre texte",
       editor: new Editor({
         extensions: [
           new Blockquote(),
@@ -204,10 +209,10 @@ export default {
         ],
         content: `
           <h2>
-            Export HTML or JSON
+            Export HTML
           </h2>
           <p>
-            You are able to export your data as <code>HTML</code> or <code>JSON</code>.
+            You are able to export your data as <code>HTML</code>.
           </p>
         `,
         onUpdate: ({getHTML }) => {
@@ -223,21 +228,8 @@ export default {
       this.editor.focus()
     },
     setContent() {
-      // you can pass a json document
-      this.editor.setContent({
-        type: 'doc',
-        content: [{
-          type: 'paragraph',
-          content: [
-            {
-              type: 'text',
-              text: 'This is some inserted text. 👋',
-            },
-          ],
-        }],
-      }, true)
-      // HTML string is also supported
-      // this.editor.setContent('<p>This is some inserted text. 👋</p>')
+      //HTML string is also supported
+      this.editor.setContent(this.base)
       this.editor.focus()
     },
   },
