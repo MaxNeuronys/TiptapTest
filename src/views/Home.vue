@@ -150,8 +150,15 @@
     </div>
 
     <div class="export">
-      <h3>HTML</h3>
-      <pre><code>{{ html }}</code></pre>
+      <div class="item">
+          <h3>JSON</h3>
+        <pre><code v-html="json"></code></pre>
+      </div>
+
+     <div class="item">
+          <h3>HTML</h3>
+         <pre><code>{{ html }}</code></pre>
+     </div>
     </div>
   </div>
 </template>
@@ -193,7 +200,7 @@ export default {
           new BulletList(),
           new CodeBlock(),
           new HardBreak(),
-          new Heading({ levels: [1, 2, 3] }),
+          new Heading({ levels: [1, 2, 3, 4, 5, 6] }),
           new HorizontalRule(),
           new ListItem(),
           new OrderedList(),
@@ -215,10 +222,12 @@ export default {
             You are able to export your data as <code>HTML</code>.
           </p>
         `,
-        onUpdate: ({getHTML }) => {
+        onUpdate: ({ getJSON, getHTML }) => {
+          this.json = getJSON()
           this.html = getHTML()
         },
       }),
+      json: 'Update content to see changes',
       html: 'Update content to see changes',
     }
   },
@@ -240,12 +249,17 @@ export default {
 @import "../assets/sass/variables";
 @import "../assets/sass/editor";
 .actions {
-  max-width: 30rem;
+  max-width: 50rem;
   margin: 0 auto 2rem auto;
 }
 .export {
-  max-width: 30rem;
-  margin: 0 auto 2rem auto;
+    max-width: 50rem;
+    margin: 0 auto 2rem auto;
+    display: flex;
+    justify-content: space-between;
+    .item {
+        width: 48%;
+    }
   pre {
     padding: 1rem;
     border-radius: 5px;
